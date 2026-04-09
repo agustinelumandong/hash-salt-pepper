@@ -1,14 +1,15 @@
-export type AuthScreen = 'signin' | 'signup'
+export type AuthScreen = 'signin' | 'signup' | 'success'
 export type ThemeMode = 'light' | 'dark'
 
+export type AuthSuccessKind = 'signin' | 'signup'
+
 export interface SignInFormValues {
-  email: string
+  username: string
   password: string
 }
 
 export interface SignUpFormValues {
-  name: string
-  email: string
+  username: string
   password: string
   confirmPassword: string
 }

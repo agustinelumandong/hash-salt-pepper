@@ -21,6 +21,7 @@ export function AuthCard({
       <div className="theme-toggle-wrap">
         <ThemeToggle mode={themeMode} onToggle={onToggleTheme} />
       </div>
+
       <div className="auth-card">
         <header className="auth-header">
           <h1 id="auth-title" className="auth-title">
