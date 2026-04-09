@@ -21,6 +21,16 @@ const initialValues: SignUpFormValues = {
   confirmPassword: '',
 }
 
+function getPasswordStrength(password: string) {
+  return {
+    length: password.length >= 8,
+    uppercase: /[A-Z]/.test(password),
+    lowercase: /[a-z]/.test(password),
+    digit: /\d/.test(password),
+    special: /[^A-Za-z0-9]/.test(password),
+  }
+}
+
 function validateSignUp(values: SignUpFormValues): SignUpFormErrors {
   const errors: SignUpFormErrors = {}
 
@@ -34,10 +44,11 @@ function validateSignUp(values: SignUpFormValues): SignUpFormErrors {
     errors.email = 'Please enter a valid email address.'
   }
 
+  const strength = getPasswordStrength(values.password)
   if (!values.password) {
     errors.password = 'Password is required.'
-  } else if (values.password.length < 8) {
-    errors.password = 'Password must be at least 8 characters.'
+  } else if (!Object.values(strength).every(Boolean)) {
+    errors.password = 'Password must meet all criteria.'
   }
 
   if (!values.confirmPassword) {
@@ -94,6 +105,9 @@ export function SignUpPage({
     setIsSubmitting(false)
   }
 
+  const passwordStrength = getPasswordStrength(values.password)
+  const strengthScore = Object.values(passwordStrength).filter(Boolean).length
+
   return (
     <AuthCard
       title="Create Account"
@@ -126,17 +140,36 @@ export function SignUpPage({
           onChange={handleChange}
         />
 
-        <AuthInput
-          id="signup-password"
-          label="Password"
-          name="password"
-          type="password"
-          value={values.password}
-          placeholder="Create a password"
-          autoComplete="new-password"
-          error={errors.password}
-          onChange={handleChange}
-        />
+        <div className="auth-field-wrapper">
+          <AuthInput
+            id="signup-password"
+            label="Password"
+            name="password"
+            type="password"
+            value={values.password}
+            placeholder="Create a password"
+            autoComplete="new-password"
+            error={errors.password}
+            onChange={handleChange}
+          />
+          {values.password && (
+            <div className="password-strength">
+              <div className="password-strength-bar-container">
+                <div 
+                  className="password-strength-bar" 
+                  style={{ width: `${(strengthScore / 5) * 100}%` }}
+                />
+              </div>
+              <ul className="password-criteria-list">
+                <li className={passwordStrength.length ? 'met' : ''}>At least 8 char</li>
+                <li className={passwordStrength.uppercase ? 'met' : ''}>One uppercase</li>
+                <li className={passwordStrength.lowercase ? 'met' : ''}>One lowercase</li>
+                <li className={passwordStrength.digit ? 'met' : ''}>One digit</li>
+                <li className={passwordStrength.special ? 'met' : ''}>One special</li>
+              </ul>
+            </div>
+          )}
+        </div>
 
         <AuthInput
           id="signup-confirm-password"

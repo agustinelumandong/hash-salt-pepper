@@ -1,22 +1,26 @@
+@import 'tailwindcss';
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
+  --text: #6aff9b;
+  --text-h: #c2ffd6;
+  --bg: #040a06;
+  --border: #1a3a28;
+  --code-bg: #0a1a12;
+  --accent: #37ff8b;
+  --accent-bg: rgba(55, 255, 139, 0.14);
+  --accent-border: rgba(55, 255, 139, 0.5);
+  --social-bg: rgba(10, 26, 18, 0.7);
   --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+    rgba(0, 0, 0, 0.55) 0 16px 28px -12px, rgba(55, 255, 139, 0.08) 0 0 24px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  --sans: 'JetBrains Mono', 'IBM Plex Mono', 'Fira Code', 'Cascadia Code',
+    'SFMono-Regular', ui-monospace, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+  --heading: var(--sans);
+  --mono: var(--sans);
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
+  font: 16px/150% var(--sans);
+  letter-spacing: 0.12px;
   color-scheme: light;
   color: var(--text);
   background: var(--bg);
@@ -25,31 +29,28 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
 :root[data-theme='dark'] {
-  --text: #9ca3af;
-  --text-h: #f3f4f6;
-  --bg: #16171d;
-  --border: #2e303a;
-  --code-bg: #1f2028;
-  --accent: #c084fc;
-  --accent-bg: rgba(192, 132, 252, 0.15);
-  --accent-border: rgba(192, 132, 252, 0.5);
-  --social-bg: rgba(47, 48, 58, 0.5);
+  --text: #65ff9a;
+  --text-h: #d6ffe4;
+  --bg: #010702;
+  --border: #1b3f2a;
+  --code-bg: #06140d;
+  --accent: #39ff8f;
+  --accent-bg: rgba(57, 255, 143, 0.18);
+  --accent-border: rgba(57, 255, 143, 0.55);
+  --social-bg: rgba(6, 20, 13, 0.72);
   --shadow:
-    rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+    rgba(0, 0, 0, 0.72) 0 20px 36px -18px, rgba(57, 255, 143, 0.12) 0 0 30px;
 }
 
 #root {
-  width: 1126px;
+  width: 100%;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
-  border-inline: 1px solid var(--border);
+  border-inline: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -58,18 +59,23 @@
 
 body {
   margin: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(55, 255, 139, 0.08), transparent 42%),
+    radial-gradient(circle at 80% 10%, rgba(55, 255, 139, 0.06), transparent 34%),
+    var(--bg);
 }
 
 h1,
 h2 {
   font-family: var(--heading);
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-h);
+  text-transform: uppercase;
 }
 
 h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
+  font-size: 46px;
+  letter-spacing: 0.04em;
   margin: 32px 0;
   @media (max-width: 1024px) {
     font-size: 36px;
@@ -79,7 +85,7 @@ h1 {
 h2 {
   font-size: 24px;
   line-height: 118%;
-  letter-spacing: -0.24px;
+  letter-spacing: 0.03em;
   margin: 0 0 8px;
   @media (max-width: 1024px) {
     font-size: 20px;

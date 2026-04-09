@@ -16,7 +16,7 @@ export function ThemeToggle({ mode, onToggle }: ThemeToggleProps) {
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
     >
-      {isDark ? '☀️' : '🌙'}
+      {isDark ? 'LIGHT' : 'DARK'}
     </button>
   )
 }

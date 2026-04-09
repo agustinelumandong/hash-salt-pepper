@@ -5,6 +5,10 @@
   place-items: center;
   padding: 32px 20px;
   box-sizing: border-box;
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--accent) 16%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--accent) 10%, transparent) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
 .theme-toggle-wrap {
@@ -15,13 +19,14 @@
 
 .auth-card {
   width: min(100%, 440px);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  background: var(--bg);
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--bg) 94%, #000);
   box-shadow: var(--shadow);
   padding: 28px;
   box-sizing: border-box;
   font-size: 16px;
+  backdrop-filter: blur(2px);
 }
 
 .auth-header {
@@ -30,17 +35,20 @@
 
 .auth-title {
   margin: 0 0 8px;
-  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-size: clamp(1.8rem, 4vw, 2.35rem);
   font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.05;
+  letter-spacing: 0.06em;
+  line-height: 1.08;
+  text-transform: uppercase;
+  text-shadow: 0 0 14px color-mix(in srgb, var(--accent) 45%, transparent);
 }
 
 .auth-subtitle {
   color: var(--text);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   line-height: 1.4;
   margin: 0;
+  letter-spacing: 0.03em;
 }
 
 .auth-form {
@@ -58,20 +66,22 @@
 
 .auth-label {
   color: var(--text-h);
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .auth-input {
   width: 100%;
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 11px 12px;
+  border-radius: 2px;
+  padding: 10px 12px;
   font-size: 16px;
   line-height: 1.5;
   font-family: inherit;
   color: var(--text-h);
-  background: var(--bg);
+  background: color-mix(in srgb, var(--bg) 90%, #000);
   box-sizing: border-box;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -79,34 +89,105 @@
 .auth-input:focus-visible {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-bg);
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--bg) 70%, transparent),
+    0 0 0 4px var(--accent-bg);
+}
+
+.auth-input::placeholder {
+  color: color-mix(in srgb, var(--text) 72%, #000);
 }
 
 .auth-error {
-  color: #d14343;
+  color: #ff7474;
   font-size: 0.75rem;
   font-weight: 500;
   margin: 2px 0 0;
 }
 
+.auth-field-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.password-strength {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: -2px;
+}
+
+.password-strength-bar-container {
+  height: 5px;
+  background: var(--border);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.password-strength-bar {
+  height: 100%;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 70%, #9effbc), var(--accent));
+  transition: width 0.3s ease, background-color 0.3s ease;
+  border-radius: 1px;
+}
+
+.password-criteria-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 12px;
+  row-gap: 4px;
+  font-size: 0.68rem;
+  color: var(--text);
+}
+
+.password-criteria-list li {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s ease;
+}
+
+.password-criteria-list li::before {
+  content: "•";
+  color: var(--border);
+  transition: color 0.2s ease;
+}
+
+.password-criteria-list li.met {
+  text-decoration: line-through;
+  color: color-mix(in srgb, var(--text) 58%, #000);
+}
+
+.password-criteria-list li.met::before {
+  content: "✓";
+  color: var(--accent);
+}
+
 .auth-submit {
   margin-top: 8px;
-  border: none;
-  border-radius: 10px;
-  background: var(--accent);
-  color: #fff;
+  border: 1px solid var(--accent-border);
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg));
+  color: var(--text-h);
   padding: 10px 14px;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.95rem;
   line-height: 1.4;
   font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
 }
 
 .auth-submit:hover {
   opacity: 0.92;
   transform: translateY(-1px);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 32%, transparent);
 }
 
 .auth-submit:disabled {
@@ -118,6 +199,7 @@
 .auth-switch {
   margin: 16px 0 0;
   color: var(--text);
+  font-size: 0.85rem;
 }
 
 .auth-switch-button {
@@ -126,6 +208,8 @@
   color: var(--accent);
   font: inherit;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   padding: 0;
   cursor: pointer;
 }
@@ -142,15 +226,16 @@
 
 .theme-toggle {
   border: 1px solid var(--border);
-  background: var(--bg);
+  background: color-mix(in srgb, var(--bg) 90%, #000);
   color: var(--text-h);
-  border-radius: 999px;
+  border-radius: 2px;
   padding: 6px 10px;
   font-family: inherit;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
+  letter-spacing: 0.04em;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
