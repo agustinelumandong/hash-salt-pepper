@@ -30,7 +30,7 @@ const usernamePattern = /^[A-Za-z][A-Za-z0-9_]{2,23}$/
 
 function getPasswordStrength(password: string) {
   return {
-    length: password.length >= 8,
+    length: password.length >= 12,
     uppercase: /[A-Z]/.test(password),
     lowercase: /[a-z]/.test(password),
     digit: /\d/.test(password),
@@ -271,7 +271,7 @@ export function SignUpPage({
                 />
               </div>
               <ul className="password-criteria-list">
-                <li className={passwordStrength.length ? 'met' : ''}>At least 8 char</li>
+                <li className={passwordStrength.length ? 'met' : ''}>At least 12 char</li>
                 <li className={passwordStrength.uppercase ? 'met' : ''}>One uppercase</li>
                 <li className={passwordStrength.lowercase ? 'met' : ''}>One lowercase</li>
                 <li className={passwordStrength.digit ? 'met' : ''}>One digit</li>
